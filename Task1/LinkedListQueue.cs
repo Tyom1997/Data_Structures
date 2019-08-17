@@ -23,9 +23,22 @@ namespace Task1
         {
             listqueue.Addlast(member);
         }
-        public void Dequeue()
+        public T Dequeue()
         {
-
+            if (listqueue.Count < 0)
+            {
+                throw new Exception();
+            }
+            return listqueue.RemoveFirst();
+        }
+        public void Peek()
+        {
+            if (listqueue.Count < 0)
+            {
+                throw new Exception();
+            }
+            var peek = listqueue.RemoveFirst();
+            Console.WriteLine(peek);
         }
     }
 }

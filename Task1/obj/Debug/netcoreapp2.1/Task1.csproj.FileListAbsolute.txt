@@ -3,9 +3,9 @@ C:\Users\Привет Артем\Desktop\Tyom\InOne Solutions\Task1\Task1\bin\De
 C:\Users\Привет Артем\Desktop\Tyom\InOne Solutions\Task1\Task1\bin\Debug\netcoreapp2.1\Task1.runtimeconfig.dev.json
 C:\Users\Привет Артем\Desktop\Tyom\InOne Solutions\Task1\Task1\bin\Debug\netcoreapp2.1\Task1.dll
 C:\Users\Привет Артем\Desktop\Tyom\InOne Solutions\Task1\Task1\bin\Debug\netcoreapp2.1\Task1.pdb
-C:\Users\Привет Артем\Desktop\Tyom\InOne Solutions\Task1\Task1\obj\Debug\netcoreapp2.1\Task1.csprojAssemblyReference.cache
 C:\Users\Привет Артем\Desktop\Tyom\InOne Solutions\Task1\Task1\obj\Debug\netcoreapp2.1\Task1.csproj.CoreCompileInputs.cache
 C:\Users\Привет Артем\Desktop\Tyom\InOne Solutions\Task1\Task1\obj\Debug\netcoreapp2.1\Task1.AssemblyInfoInputs.cache
 C:\Users\Привет Артем\Desktop\Tyom\InOne Solutions\Task1\Task1\obj\Debug\netcoreapp2.1\Task1.AssemblyInfo.cs
 C:\Users\Привет Артем\Desktop\Tyom\InOne Solutions\Task1\Task1\obj\Debug\netcoreapp2.1\Task1.dll
 C:\Users\Привет Артем\Desktop\Tyom\InOne Solutions\Task1\Task1\obj\Debug\netcoreapp2.1\Task1.pdb
+C:\Users\Привет Артем\Desktop\Tyom\InOne Solutions\Task1\Task1\obj\Debug\netcoreapp2.1\Task1.csprojAssemblyReference.cache

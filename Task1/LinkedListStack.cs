@@ -17,14 +17,16 @@ namespace Task1
             {
                 throw new Exception();
             }
+            return list.RemoveFirst();
         }
-        public T Peek()
+        public void Peek()
         {
             if (list.Count < 0)
             {
                 throw new Exception();
             }
-            return list.RemoveFirst();
+            var peek = list.RemoveFirst();
+            Console.WriteLine(peek);
         }
         public void Reverse()
         {

@@ -7,11 +7,13 @@ namespace Task1
     class ArrayStack<T>
     {
         private T[] array;
+        private T[] array1;
         private int index = -1;
         public int Count { get; private set; }
         public ArrayStack(int capacity)
         {
             array = new T[capacity];
+            array1 = new T[capacity];
         }
         public bool IsEmpty()
         {
@@ -21,7 +23,7 @@ namespace Task1
         {
             if (index >= array.Length)
             {
-                Console.WriteLine("Stack is ovverloaded");
+                throw new Exception();
             }
             else
             {
@@ -35,7 +37,7 @@ namespace Task1
             {
                 throw new Exception();
             }
-            index--;
+            Count--;
             array[index] = default(T);
             return array[index];
         }
@@ -47,29 +49,29 @@ namespace Task1
             }
             return array[index];
         }
-        public void Reverse()
+        public T Reverse()
         {
-            
-            T prev = default;
-            T current = array[index];
-            if (current == null)
+            int j = 0;
+            for (int i = Count - 1; i >= 0; i--)
             {
-                return;
+                array1[j] = array[i];
+                j++;
             }
-            while (current != null)
-            {
-                T next = prev; 
-                prev = current;
-                current = next;
-            }
-            array[index] = prev;
+            return array1[j];
         }
-        public void Print()
-        {
+        public void PrintStack()
+        {           
             for(int i = 0; i < Count; i++)
             {
                 Console.Write(array[i]+" ");
             }           
+        }
+        public void PrintReverseStack()
+        {
+            for (int j = 0; j < Count; j++)
+            {
+                Console.Write(array1[j] + " ");
+            }
         }
        
     }

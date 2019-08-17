@@ -70,17 +70,14 @@ namespace Task1
         public void Reverse()
         {
             Node<T> prev = null;
-            Node<T> current = firstMember;
-            if (current == null)
+            Node<T> current =firstMember;
+            Node<T> temp = null;
+            while (current != null)
             {
-                return;
-            }
-            while (current!=null)
-            {
-                Node<T> next = current.Next;
+                temp = current.Next;
                 current.Next = prev;
                 prev = current;
-                current = next;
+                current = temp;
             }
             firstMember = prev;
         }
@@ -92,12 +89,11 @@ namespace Task1
             }
         }
         public void Show()
-        {
-            Node<T> current = firstMember;
-            while (current != null)
+        {   
+            while (firstMember != null)
             {
-                Console.WriteLine(current.Member);
-                current = current.Next;
+                Console.Write(firstMember.Member + " ");
+                firstMember = firstMember.Next;
             }
         }
     }
