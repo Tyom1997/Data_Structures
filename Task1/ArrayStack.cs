@@ -49,15 +49,14 @@ namespace Task1
             }
             return array[index];
         }
-        public T Reverse()
+        public void Reverse()
         {
-            int j = 0;
-            for (int i = Count - 1; i >= 0; i--)
+            for (int i = 0; i < Count / 2; i++)
             {
-                array1[j] = array[i];
-                j++;
+                T tmp = array[i];
+                array[i] = array[Count - i - 1];
+                array[Count - i - 1] = tmp;
             }
-            return array1[j];
         }
         public void PrintStack()
         {           
@@ -66,13 +65,7 @@ namespace Task1
                 Console.Write(array[i]+" ");
             }           
         }
-        public void PrintReverseStack()
-        {
-            for (int j = 0; j < Count; j++)
-            {
-                Console.Write(array1[j] + " ");
-            }
-        }
+        
        
     }
 }

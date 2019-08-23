@@ -53,7 +53,6 @@ namespace Task1
             }
             count++;
         }
-
         public T RemoveFirst()
         {
             if (count < 0)
@@ -66,7 +65,15 @@ namespace Task1
             count--;
             return val;
         }
-
+        public T First()
+        {
+            if (firstMember.Member==null)
+            {
+                throw new Exception();
+            }
+            
+            return firstMember.Member;
+        }
         public void Reverse()
         {
             Node<T> prev = null;
@@ -95,6 +102,7 @@ namespace Task1
                 Console.Write(firstMember.Member + " ");
                 firstMember = firstMember.Next;
             }
+            Console.WriteLine();
         }
     }
 }

@@ -4,9 +4,10 @@ using System.Text;
 
 namespace Task1
 {
-    public class Node<T>
+    public class Node<T> 
     {
-        public T Member;
-        public Node<T> Next;
+        public T Member { get; set; }
+        public Node<T> Next { get; set; }
+
     }
 }

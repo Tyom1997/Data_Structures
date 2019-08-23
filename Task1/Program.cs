@@ -6,23 +6,18 @@ namespace Task1
     {
         static void Main(string[] args)
         {
-            //LinkedList<string> list = new LinkedList<string>();
-            //list.Addfirst("Real Madrid");
-            //list.Addfirst("Chelsea");
-            //list.Addfirst("Milan");
-            //list.Addlast("Barcelona");
-            //list.Show();
-            //list.Reverse();
-            //list.Show();
-            //ArrayStack<string> arraystack = new ArrayStack<string>(100);
-            //arraystack.Push("Hello");
-            //arraystack.Push("Bye");
-            //arraystack.Push("Good");
-            //arraystack.PrintStack();
-            //arraystack.Reverse();
-            //arraystack.PrintReverseStack();
-            LargeInteger large = new LargeInteger();
-            large.AddNUmberList(2678);
+            //BinaryTree<int> b = new BinaryTree<int>();
+            //b.Add(8);
+            //b.Add(5);
+            //b.Add(10);
+            //b.Add(7);
+            //b.Add(15);
+            //b.Add(3);
+            //b.InOrder();
+            //FindElementOnce f = new FindElementOnce();
+            //int[] arr ={1,1,2,2,7,5,5};
+            //int n = arr.Length;
+            //Console.WriteLine(f.FindSingle(arr));
 
         }
     }

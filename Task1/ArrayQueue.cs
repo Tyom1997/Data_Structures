@@ -7,8 +7,8 @@ namespace Task1
     class ArrayQueue<T>
     {
         private T[] array;
-        private T[] array1;
-        private int index = -1;
+        private int indexinput = -1;
+        private int indexout = -1;
         public int Count { get; private set; }
         public bool IsEmpty()
         {
@@ -17,60 +17,74 @@ namespace Task1
         public ArrayQueue(int capacity)
         {
             array = new T[capacity];
-            array1 = new T[capacity];
         }
         public void Enqueue(T member)
         {
-            if (array.Length < index)
+            if (indexinput == indexout && indexout !=-1)
             {
                 throw new Exception();
             }
-            array[++index] = member;
+
+            if (indexinput == array.Length - 1)
+            {
+                indexinput = 0;
+            }
+            else
+                indexinput++;
+            array[indexinput] = member;
             Count++;
         }
         public T Dequeue()
         {
-            if (Count < 0)
+            if (indexinput == indexout && indexinput != -1)
             {
                 throw new Exception();
             }
+            if (indexout == array.Length-1)
+            {
+                indexout =0;
+            }
+            else
+            {
+                indexout++;
+            }
+            var r = array[indexout];
+            array[indexout] = default(T);
             Count--;
-            array[0] = default(T);
-            return array[0];
+            return r;
         }
         public T Peek()
         {
-            if (index < 0)
-            {
-                throw new Exception();
-            }
-            return array[0];
+                if (indexinput == indexout && indexinput != -1)
+                {
+                    throw new Exception();
+                }
+                if (indexout == array.Length - 1)
+                {
+                    indexout = 0;
+                }
+                else
+                {
+                    indexout++;
+                }
+                var r = array[indexout];
+                return r;            
         }
-        public T Reverse()
+        public void Reverse()
         {
-            
-            int j = 0;
-            for(int i = Count-1; i>=0; i--)
+            for (int i = 0; i <Count / 2; i++)
             {
-                array1[j] = array[i];
-                j++;
-            }
-            return array1[j];
+                T tmp = array[i];
+                array[i] = array[Count-i-1];
+                array[Count - i - 1] = tmp;
+            }            
         }
         public void PrintQueue()
         {
-            for(int i = 0; i < Count; i++)
+            for (int i = 0; i < Count; i++)
             {
-                Console.WriteLine(array[i]+" ");
+                Console.Write(array[i] + " ");
             }
         }
-        public void PrintReverseQueue()
-        {
-            for (int j = 0; j < Count; j++)
-            {
-                Console.Write(array1[j] + " ");
-            }
-        }
-
     }
 }
