@@ -47,6 +47,7 @@ namespace Task1
                     for(int j = 0; j < count1; j++)
                     {
                         var s1 = list.First()+bonus;
+                        list.Addlast(list.RemoveFirst());
                         bonus = s1 / 10;
                         s1 = s1 % 10;
                         c.list.Addlast(s1);
@@ -58,6 +59,7 @@ namespace Task1
                     for (int j = 0; j < count1; j++)
                     {
                         var s1 = num.list.First() + bonus;
+                        num.list.Addlast(num.list.RemoveFirst());
                         bonus = s1 / 10;
                         s1 = s1 % 10;
                         c.list.Addlast(s1);

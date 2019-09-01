@@ -6,19 +6,15 @@ namespace Task1
     {
         static void Main(string[] args)
         {
-            //BinaryTree<int> b = new BinaryTree<int>();
-            //b.Add(8);
-            //b.Add(5);
-            //b.Add(10);
-            //b.Add(7);
-            //b.Add(15);
-            //b.Add(3);
-            //b.InOrder();
-            //FindElementOnce f = new FindElementOnce();
-            //int[] arr ={1,1,2,2,7,5,5};
-            //int n = arr.Length;
-            //Console.WriteLine(f.FindSingle(arr));
-
+            BinaryTree<int> avl = new BinaryTree<int>();
+            avl.Add(10);
+            avl.Add(9);
+            avl.Add(8);
+            avl.Remove(10);
+            avl.InOrder();
+            //tree.InOrder();
+            //tree.Remove(9);
+            //tree.InOrder();
         }
     }
 }
