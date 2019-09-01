@@ -7,246 +7,227 @@ namespace Task1
 {
     class BinaryTree<T> where T:IComparable<T>
     {
-        public  NodeBinnary<T> Root { get; set; }
-        private int size;
-        private Comparison<IComparable> comparer = CompareElements;
-        public BinaryTree()
+        public enum TraversalMode
         {
-            Root = null;
-            size = 0;
+            InOrder = 0,
+            PostOrder,
+            PreOrder
+        }
+        private BinnaryNode<T> head;
+        private Comparison<IComparable> comparer = CompareElements;
+        private int size;
+        private TraversalMode traversalMode = TraversalMode.InOrder;
+        public virtual BinnaryNode<T> Root
+        {
+            get { return head; }
+            set { head = value; }
         }
         public virtual int Count
         {
             get { return size; }
         }
-        public virtual void Add(T data)
+        public virtual TraversalMode TraversalOrder
         {
-            NodeBinnary<T> node = new NodeBinnary<T>(data);
-            if (Root == null)
+            get { return traversalMode; }
+            set { traversalMode = value; }
+        }
+        public BinaryTree()
+        {
+            head = null;
+            size = 0;
+        }
+        public virtual void Add(T value)
+        {
+            BinnaryNode<T> node = new BinnaryNode<T>(value);
+            AddHelper(node);
+        }
+        public virtual void AddHelper(BinnaryNode<T> node)
+        {
+            if (this.head == null) 
             {
-                Root = node;
+                head = node;
+                node.Tree = this;
                 size++;
             }
             else
             {
-                NodeBinnary<T> current = Root;
-                while (current != null)
+                if (node.Parent == null)
+                    node.Parent = head;
+                bool insertLeftSide = comparer((IComparable)node.Value, (IComparable)node.Parent.Value) <= 0;
+                if (insertLeftSide)
                 {
-                    node.Parent = current;
-                    if (current.Member.CompareTo(data) > 0)
+                    if (node.Parent.LeftChild == null)
                     {
-                        current = current.Left;
-                        if (current == null)
-                        {
-                            node.Parent.Left = node;
-                            size++;
-                        }
+                        node.Parent.LeftChild = node;
+                        size++;
+                        node.Tree = this;
                     }
                     else
                     {
-                        current = current.Right;
-                        if (current == null)
-                        {
-                            node.Parent.Right = node;
-                            node.Parent = current;
-                            size++;
-                        }
+                        node.Parent = node.Parent.LeftChild;
+                        this.AddHelper(node);
+                    }
+                }
+                else
+                {
+                    if (node.Parent.RightChild == null)
+                    {
+                        node.Parent.RightChild = node;
+                        size++;
+                        node.Tree = this;
+                    }
+                    else
+                    {
+                        node.Parent = node.Parent.RightChild;
+                        this.AddHelper(node);
                     }
                 }
             }
         }
-        public virtual bool Contains(T value)
+        public virtual BinnaryNode<T> Find(T value)
         {
-            if (this.Find(value) == null)
-                return false;
-            return true;
-        }
-        public void InOrder()
-        {
-            InOrderHelper(Root);
-        }
-        private void InOrderHelper(NodeBinnary<T> binnary)
-        {
-            if (binnary != null)
-            {
-                InOrderHelper(binnary.Left);
-                Console.Write("{0}  ", binnary.Member);
-                InOrderHelper(binnary.Right);
-            }
-        }
-        public void PreOrder()
-        {
-            PreOrderHelper(Root);
-        }
-        private void PreOrderHelper(NodeBinnary<T> binnary)
-        {
-            if (binnary != null)
-            {
-                Console.Write("{0}   ", binnary.Member);
-                PreOrderHelper(binnary.Left);
-                PreOrderHelper(binnary.Right);
-            }
-        }
-        public void PostOrder()
-        {
-            PostOrderHelper(Root);
-        }
-        private void PostOrderHelper(NodeBinnary<T> binnary)
-        {
-            if (binnary != null)
-            {
-                PostOrderHelper(binnary.Left);
-                PostOrderHelper(binnary.Right);
-                Console.Write("{0}   ", binnary.Member);
-            }
-        }
-        private NodeBinnary<T> Next(T value)
-        {
-            NodeBinnary<T> current = Root, successor = null;
-            while (current != null)
-            {
-                int val = current.Member.CompareTo(value);
-                if (val > 0)
-                {
-                    successor = current;
-                    current = current.Left;
-                }
-                else
-                    current = current.Right;
-            }
-            return successor;
-        }
-        protected virtual NodeBinnary<T> Find(T value)
-        {
-            NodeBinnary<T> node = Root;
+            BinnaryNode<T> node = head;
             while (node != null)
             {
-                int compare = CompareElements((IComparable)value, (IComparable)node.Member);
-                if (compare == 0)
+                if (node.Value.Equals(value))
                     return node;
-                if (compare < 0)
+                else
                 {
-                    node = node.Left;
-                    continue;
+                    bool searchLeft = comparer((IComparable)value, (IComparable)node.Value) < 0;
+                    if (searchLeft)
+                        node = node.LeftChild;
+                    else
+                        node = node.RightChild;
                 }
-                node = node.Right;
             }
             return null;
         }
-        public int MaxDepth(AVLNodeBinnary<T> node)
+        public virtual bool Contains(T value)
         {
-            if (node == null)
-                return 0;
-            else
-            {
-                int leftDepth = MaxDepth(node.Left);
-                int rightDepth = MaxDepth(node.Right);
-                if (leftDepth > rightDepth)
-                    return (leftDepth + 1);
-                else return (rightDepth + 1);
-            }
-        }
-        public void Swap(NodeBinnary<T> first, NodeBinnary<T> second)
-        {
-            NodeBinnary<T> left1 = first.Left;
-            NodeBinnary<T> left2 = second.Left;
-            NodeBinnary<T> right1 = first.Right;
-            NodeBinnary<T> right2 = second.Right;
-            NodeBinnary<T> parent1 = first.Parent;
-            NodeBinnary<T> parent2 = second.Parent;
-            first.Left = left2;
-            second.Left = left1;
-            first.Right = right2;
-            second.Right = right1;
-            first.Parent = parent2;
-            second.Parent = parent1;
+            return (Find(value) != null);
         }
         public virtual void Remove(T value)
         {
-            NodeBinnary<T> parentNode;
-            NodeBinnary<T> foundNode = null;
-            NodeBinnary<T> tree = parentNode = Root;
-            while (tree != null)
+            BinnaryNode<T> removeNode = Find(value);
+            RemoveHelper(removeNode);
+        }
+        public virtual void RemoveHelper(BinnaryNode<T> removeNode)
+        {
+            if (removeNode == null || removeNode.Tree != this)
+                Console.WriteLine("Nod not founded");
+            bool wasHead = (removeNode == head);
+            if (this.Count == 1)
             {
-                
-                if (value.CompareTo(tree.Member) == 0)
-                {
-                    foundNode = tree;
-                    size--;
-                    break;
-                }
-                else if (value.CompareTo(tree.Member) < 0)
-                {
-                    parentNode = tree;
-                    tree = tree.Left;
-                    
-                }
-                else if (value.CompareTo(tree.Member) > 0)
-                {
-                    parentNode = tree;
-                    tree = tree.Right;
-                }
+                this.head = null;
+                removeNode.Tree = null;
+                size--;
             }
-            if (foundNode == null)
+            else if(removeNode.RightChild==null && removeNode.RightChild == null)
             {
-                throw new Exception("Node not found in binary tree");
-            }
-            bool leftOrRightNode = false;
-            if(foundNode.Left == null && foundNode.Right == null)
-            {
-                if (leftOrRightNode)
+                if(removeNode.Parent != null && removeNode.Parent.LeftChild == removeNode)
                 {
-                    parentNode.Right = null;
-                    size--;
+                    removeNode.Parent.LeftChild = null;
                 }
                 else
                 {
-                    parentNode.Left = null;
-                    size--;
+                    removeNode.Parent.RightChild = null;
                 }
+                removeNode.Tree = null;
+                removeNode.Parent = null;
+                size--;
             }
-            else if (foundNode.Left != null &&foundNode.Right != null)
+            else if ((removeNode.RightChild == null || removeNode.RightChild == null))
             {
-                if (leftOrRightNode)
+                if (removeNode.Parent != null && removeNode.Parent.LeftChild == removeNode)
                 {
-                    parentNode.Right = foundNode.Right;
-                    parentNode.Right.Left = foundNode.Left;
-                }
-                else
-                {
-                    parentNode.Left = foundNode.Right;
-                    parentNode.Left.Left = foundNode.Left;
-                }
-            }
-            else if (foundNode.Left != null || foundNode.Right != null)
-            {
-                if (foundNode.Left != null)
-                {
-                    if (leftOrRightNode)
-                    {
-                        parentNode.Right = foundNode.Left;
-                    }
+                    removeNode.LeftChild.Parent = removeNode.Parent;
+                    if (wasHead)
+                        this.Root = removeNode.LeftChild;
+                    if ((removeNode.Parent != null && removeNode.Parent.LeftChild == removeNode))
+                        removeNode.Parent.LeftChild = removeNode.LeftChild;
                     else
-                    {
-                        parentNode.Left = foundNode.Left;
-                    }
+                        removeNode.Parent.RightChild = removeNode.LeftChild;
                 }
                 else
                 {
-                    if (leftOrRightNode)
-                    {
-                        parentNode.Right = foundNode.Right;
-                    }
+                    removeNode.RightChild.Parent = removeNode.Parent;
+                    if (wasHead)
+                        this.Root = removeNode.RightChild;
+                    if ((removeNode.Parent != null && removeNode.Parent.LeftChild == removeNode))
+                        removeNode.Parent.LeftChild = removeNode.RightChild;
                     else
-                    {
-                        parentNode.Left = foundNode.Right;
-                    }
+                        removeNode.Parent.RightChild = removeNode.RightChild;
                 }
+                removeNode.Tree = null;
+                removeNode.Parent = null;
+                removeNode.LeftChild = null;
+                removeNode.RightChild = null;
+                size--;
+            }
+            else
+            {
+                BinnaryNode<T> successorNode = removeNode.LeftChild;
+                while (successorNode.RightChild != null)
+                {
+                    successorNode = successorNode.RightChild;
+                }
+                removeNode.Value = successorNode.Value;
+                RemoveHelper(successorNode);
             }
         }
-        private static int CompareElements(IComparable x, IComparable y)
+        public virtual int GetHeight()
+        {
+            return GetHeight(this.Root);
+        }
+        public virtual int GetHeight(T value)
+        {
+            BinnaryNode<T> valueNode = this.Find(value);
+            if (value != null)
+                return this.GetHeight(valueNode);
+            else
+                return 0;
+        }
+        public virtual int GetHeight(BinnaryNode<T> startNode)
+        {
+            if (startNode == null)
+                return 0;
+            else
+                return 1 + Math.Max(GetHeight(startNode.LeftChild), GetHeight(startNode.RightChild));
+        }
+        public virtual void Postorder(BinnaryNode<T> node)
+        {
+            if (node == null)
+                return;
+            Postorder(node.LeftChild);
+            Postorder(node.RightChild);
+            Console.Write(node.Value + " ");
+        }
+        public virtual void Inorder(BinnaryNode<T> node)
+        {
+            if (node == null)
+                return;
+            Inorder(node.LeftChild);
+            Console.Write(node.Value + " ");
+            Inorder(node.RightChild);
+        }
+        public virtual void Preorder(BinnaryNode<T> node)
+        {
+            if (node == null)
+                return;
+
+            /* first print data of node */
+            Console.Write(node.Value + " ");
+
+            /* then recur on left sutree */
+            Preorder(node.LeftChild);
+
+            /* now recur on right subtree */
+            Preorder(node.RightChild);
+        }
+        public static int CompareElements(IComparable x, IComparable y)
         {
             return x.CompareTo(y);
         }
     }
+
 }

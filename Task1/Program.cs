@@ -6,16 +6,14 @@ namespace Task1
     {
         static void Main(string[] args)
         {
-            //BinaryTree<int> avl = new BinaryTree<int>();
-            //avl.Add(7);
-            //avl.Add(6);
-            //avl.Add(8);
-            //avl.Add(5);
-            //avl.InOrder();
-            InsertionSort<int> ins = new InsertionSort<int>();
-            int[] arr = { 6, 5, 4, 3, 2, 1 };
-            ins.Sort(arr);
-            ins.Show(arr);
+            AVLTree<int> b = new AVLTree<int>();
+            b.Add(10);
+            b.Add(9);
+            b.Add(8);
+            b.Inorder(b.Root);
+            Console.WriteLine();
+            b.Remove(8);
+            b.Inorder(b.Root);
         }
     }
 }
