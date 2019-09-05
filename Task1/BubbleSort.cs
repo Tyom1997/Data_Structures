@@ -15,9 +15,9 @@ namespace Task1
         public  T[] Sort(T[] array)
         {
             var len = array.Length;
-            for (var i = 1; i < len; i++)
+            for (int i = 1; i < len; i++)
             {
-                for (var j = 0; j <len-i ; j++)
+                for (int j = 0; j <len-i ; j++)
                 {
                     if (array[j].CompareTo(array[j+1])==1)
                     {
@@ -25,7 +25,6 @@ namespace Task1
                     }
                 }
             }
-
             return array;
         }
         public void Show(T[] arr)

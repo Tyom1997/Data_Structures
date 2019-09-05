@@ -6,14 +6,13 @@ namespace Task1
     {
         static void Main(string[] args)
         {
-            AVLTree<int> b = new AVLTree<int>();
-            b.Add(10);
-            b.Add(9);
-            b.Add(8);
-            b.Inorder(b.Root);
-            Console.WriteLine();
-            b.Remove(8);
-            b.Inorder(b.Root);
+            HeapSort s = new HeapSort();
+            int[] arr = { 9, 8, 7, 6, 4, 3, 2, 1 };
+            s.Sort(arr);
+            for(int i = 0; i < arr.Length; i++)
+            {
+                Console.Write(arr[i]+" ");
+            } 
         }
     }
 }

@@ -24,20 +24,38 @@ namespace Task1
         public override void Add(T value)
         {
             AVLTreeNode<T> node = new AVLTreeNode<T>(value);
-
             base.AddHelper(node);
             AVLTreeNode<T> parentNode = node.Parent;
             while (parentNode != null)
             {
-                int balance = this.GetBalance(parentNode);
+                int balance = GetBalance(parentNode);
                 if (Math.Abs(balance) == 2)
                 {
-                    this.BalanceAt(parentNode, balance);
+                    BalanceAt(parentNode, balance);
                 }
                 parentNode = parentNode.Parent;
             }
         }
-        protected virtual void BalanceAt(AVLTreeNode<T> node, int balance)
+        public override void Remove(T value)
+        {
+            base.Remove(value);
+            AVLTreeNode<T> node = new AVLTreeNode<T>(value);
+            AVLTreeNode<T> nodeParent = node.Parent;
+            while (nodeParent != null)
+            {
+                int balance = GetBalance(nodeParent);
+                if (Math.Abs(balance) == 1)
+                {
+                    break;
+                }
+                else if (Math.Abs(balance) == 2)
+                {
+                    BalanceAt(nodeParent, balance);
+                }
+                nodeParent = nodeParent.Parent;
+            }
+        }
+        private void BalanceAt(AVLTreeNode<T> node, int balance)
         {
             if (balance == 2)
             {
@@ -66,11 +84,11 @@ namespace Task1
                 }
             }
         }
-        protected virtual int GetBalance(AVLTreeNode<T> root)
+        private int GetBalance(AVLTreeNode<T> root)
         {
-            return this.GetHeight(root.RightChild) - this.GetHeight(root.LeftChild);
+            return GetHeight(root.RightChild) - GetHeight(root.LeftChild);
         }
-        protected virtual void RotateLeft(AVLTreeNode<T> root)
+        private void RotateLeft(AVLTreeNode<T> root)
         {
             if (root == null)
             {
@@ -109,7 +127,7 @@ namespace Task1
                 }
             }
         }
-        protected virtual void RotateRight(AVLTreeNode<T> root)
+        private void RotateRight(AVLTreeNode<T> root)
         {
             if (root == null)
             {

@@ -9,7 +9,7 @@ namespace Task1
         private int MinElementIndex(T[] array, int index)
         {
             int result = index;
-            for (var i = index; i < array.Length; ++i)
+            for (int i = index; i < array.Length; ++i)
             {
                 if (array[i].CompareTo(array[result]) < 1)
                 {
@@ -28,7 +28,6 @@ namespace Task1
         {
             if (currentIndex == array.Length)
                 return array;
-
             int index = MinElementIndex(array, currentIndex);
             if (index != currentIndex)
             {

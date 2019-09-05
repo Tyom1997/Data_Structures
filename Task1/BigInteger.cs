@@ -20,7 +20,6 @@ namespace Task1
                 list.Reverse();
             }
         }
-        
         public BigInteger Sum(BigInteger num)
         {
             BigInteger c = new BigInteger();
